@@ -52,4 +52,5 @@ java -version
 
 
 echo "All installations completed successfully."
+clear
 node start.js
