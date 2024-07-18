@@ -92,7 +92,7 @@ function handleSoftwareSelection(answer) {
 
         // Start the Minecraft server
         console.log('Starting Minecraft server...');
-        execSync(`java -jar ${fileName}`, { cwd: 'minecraft_server' });
+        execSync(`java -jar ${fileName}`, {cwd: 'minecraft-server-installer'},{ cwd: 'minecraft_server' });
       } catch (error) {
         console.error(`Error downloading or starting server: ${error}`);
       }
