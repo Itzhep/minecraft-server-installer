@@ -1,7 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const { execSync } = require('child_process');
-
+const path = require('path');
 // Load versions from JSON files
 const spigotVersions = require('./spigot.json');
 const paperVersions = require('./paper.json');
@@ -53,10 +53,10 @@ function handleSoftwareSelection(answer) {
 
 
         const fileName = downloadUrl.split('/').pop();
-        const filePath = path.join(__dirname, fileName);
+        const sourcePath = path.join(__dirname, fileName); // Use path.join with __dirname
         const destinationPath = path.join(__dirname, 'minecraft_server', fileName);
 
-        fs.renameSync(filePath, destinationPath);
+        console.log(`Renaming file from ${sourcePath} to ${destinationPath}`);
 
         // Start the Minecraft server
         console.log('Starting Minecraft server...');
@@ -77,27 +77,27 @@ function handleSoftwareSelection(answer) {
       console.log(`Downloading Paper version ${selectedVersion} from ${downloadUrl}...`);
       
       // Implement download logic using wget or any other method
+      
       try {
         execSync(`wget ${downloadUrl} -P minecraft_server`);
         console.log(`Downloaded Paper ${selectedVersion} successfully.`);
-        
-        // Create a directory for Minecraft server if it doesn't exist
-        if (!fs.existsSync('minecraft_server')) {
-          fs.mkdirSync('minecraft_server');
-        }
 
         // Move the downloaded file to minecraft_server directory
         const fileName = downloadUrl.split('/').pop();
-        fs.renameSync(fileName, `minecraft_server/${fileName}`);
+        const sourcePath = path.join(__dirname, fileName); // Use path.join with __dirname
+        const destinationPath = path.join(__dirname, 'minecraft_server', fileName);
 
-        // Start the Minecraft server
-        console.log('pls run this command :');
-        console.log(`cd minecraft_server && java -jar ${filename}`)
+        console.log(`Renaming file from ${sourcePath} to ${destinationPath}`);
+
+        //if (fs.existsSync(sourcePath)) {
+          //fs.renameSync(sourcePath, destinationPath);
+
+          console.log('Starting Minecraft server...');
+          execSync(`java -jar ${fileName}`, { cwd: 'minecraft_server' });
 
       } catch (error) {
         console.error(`Error downloading or starting server: ${error}`);
       }
-
       rl.close();
     });
   } else {
