@@ -51,13 +51,16 @@ function handleSoftwareSelection(answer) {
           fs.mkdirSync('minecraft_server');
         }
 
-        // Move the downloaded file to minecraft_server directory
+
         const fileName = downloadUrl.split('/').pop();
-        fs.renameSync(fileName, `minecraft_server/${fileName}`);
+        const filePath = path.join(__dirname, fileName);
+        const destinationPath = path.join(__dirname, 'minecraft_server', fileName);
+
+        fs.renameSync(filePath, destinationPath);
 
         // Start the Minecraft server
         console.log('Starting Minecraft server...');
-        execSync(`java -jar ${fileName}`, { cwd: 'minecraft_server' });
+        execSync(`java -jar ${fileName}`, {cwd: 'minecraft-server-installer'},{ cwd: 'minecraft_server' });
       } catch (error) {
         console.error(`Error downloading or starting server: ${error}`);
       }
