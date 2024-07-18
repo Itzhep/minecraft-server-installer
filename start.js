@@ -91,8 +91,9 @@ function handleSoftwareSelection(answer) {
         fs.renameSync(fileName, `minecraft_server/${fileName}`);
 
         // Start the Minecraft server
-        console.log('Starting Minecraft server...');
-        execSync(`java -jar ${fileName}`, {cwd: 'minecraft-server-installer'},{ cwd: 'minecraft_server' });
+        console.log('pls run this command :');
+        console.log(`cd minecraft_server && java -jar ${filename}`)
+
       } catch (error) {
         console.error(`Error downloading or starting server: ${error}`);
       }
